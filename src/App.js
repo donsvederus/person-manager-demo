@@ -5,8 +5,13 @@ class App extends Component {
   render() {
 
     return (
-      <div className="App">
+      
+      // this code is not html, it's JSX, it will get compiled, so there are some restrictions.
+      // we cannot use class for CSS, we use className
+      // we should wrap everything in a div or root element, later updates may allow to edit outside the containers.
+      <div className="App">  
         <h1>Hi, I'm a React App</h1>
+        <p>This is really working!</p>
       </div>
     );
 
