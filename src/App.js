@@ -10,7 +10,8 @@ class App extends Component {
       { name: 'John', age: 33 },
       { name: 'Mary', age: 25 }
     ],
-    otherState: 'some other value'
+    otherState: 'some other value',
+    showPersons: false
   }
 
   switchNameHandler = (newName) => {
@@ -35,7 +36,21 @@ class App extends Component {
     })
   }
 
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({showPersons: !doesShow});
+  }
+
+  // this is how to do inline styles
   render () {
+    const style = {
+      backgroundColor: 'white',
+      font:'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer'
+    };
+
     return (   
       // this code is not html, it's JSX, it will get compiled, so there are some restrictions.
       // we cannot use class for CSS, we use className
@@ -43,18 +58,26 @@ class App extends Component {
       <div className="App">  
         <h1>Hi, I'm a React App</h1>
         <p>This is really working!</p>
-        <button onClick={ () => this.switchNameHandler('Donnie!!')}>Switch Name</button>
-        <Person 
-          name={this.state.persons[0].name} 
-          age={this.state.persons[0].age} />
-        <Person 
-          name={this.state.persons[1].name} 
-          age={this.state.persons[1].age}
-          click={this.switchNameHandler.bind(this, 'Don!')}
-          changed={this.nameChangedHandler} >My hobbies: Racing</Person>
-        <Person 
-          name={this.state.persons[2].name} 
-          age={this.state.persons[2].age} />
+        <button
+          style={style}
+          onClick={this.togglePersonsHandler}>Switch Name</button>
+        { 
+          this.state.showPersons === true ? 
+            <div>
+              <Person
+                name={this.state.persons[0].name}
+                age={this.state.persons[0].age} />
+              <Person
+                name={this.state.persons[1].name}
+                age={this.state.persons[1].age}
+                click={this.switchNameHandler.bind(this, 'Don!')}
+                changed={this.nameChangedHandler} >My hobbies: Racing</Person>
+              <Person
+                name={this.state.persons[2].name}
+                age={this.state.persons[2].age} />
+            </div> : null
+        }
+
       </div>
     );
   }
