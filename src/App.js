@@ -51,6 +51,26 @@ class App extends Component {
       cursor: 'pointer'
     };
 
+    let persons = null;
+
+    if (this.state.showPersons) {
+      persons = (
+        <div>
+          <Person
+            name={this.state.persons[0].name}
+            age={this.state.persons[0].age} />
+          <Person
+            name={this.state.persons[1].name}
+            age={this.state.persons[1].age}
+            click={this.switchNameHandler.bind(this, 'Don!')}
+            changed={this.nameChangedHandler} >My hobbies: Racing</Person>
+          <Person
+            name={this.state.persons[2].name}
+            age={this.state.persons[2].age} />
+        </div>
+      );
+    }
+
     return (   
       // this code is not html, it's JSX, it will get compiled, so there are some restrictions.
       // we cannot use class for CSS, we use className
@@ -61,23 +81,7 @@ class App extends Component {
         <button
           style={style}
           onClick={this.togglePersonsHandler}>Switch Name</button>
-        { 
-          this.state.showPersons === true ? 
-            <div>
-              <Person
-                name={this.state.persons[0].name}
-                age={this.state.persons[0].age} />
-              <Person
-                name={this.state.persons[1].name}
-                age={this.state.persons[1].age}
-                click={this.switchNameHandler.bind(this, 'Don!')}
-                changed={this.nameChangedHandler} >My hobbies: Racing</Person>
-              <Person
-                name={this.state.persons[2].name}
-                age={this.state.persons[2].age} />
-            </div> : null
-        }
-
+          {persons}
       </div>
     );
   }
