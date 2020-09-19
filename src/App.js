@@ -1,8 +1,8 @@
 import React, { useState, Component } from 'react';
 import './App.css';
+import Radium, { StyleRoot } from 'radium';
 import Person from './Person/Person';
 
-//  class App extends Component {
 class App extends Component {
   state = {
     persons: [
@@ -32,7 +32,6 @@ class App extends Component {
   }
 
   deletePersonHandler = (personIndex) => {
-    // const persons = this.state.persons.slice();
     const persons = [...this.state.persons];
     persons.splice(personIndex, 1);
     this.setState({persons: persons});
@@ -51,7 +50,11 @@ class App extends Component {
       font:'inherit',
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }
     };
 
     let persons = null;
@@ -69,7 +72,12 @@ class App extends Component {
           })}
         </div>
       );
+
       style.backgroundColor = 'red';
+      style[':hover'] = {
+        backgroundColor: 'salmon',
+        color: 'black'
+      }
     }
 
     let classes = [];
@@ -82,27 +90,21 @@ class App extends Component {
       classes.push('bold');  //classes = red and bold
     }
 
-
-
     return (   
-      // this code is not html, it's JSX, it will get compiled, so there are some restrictions.
-      // we cannot use class for CSS, we use className
-      // we should wrap everything in a div or root element, later updates may allow to edit outside the containers.
-      <div className="App">  
-        <h1>Hi, I'm a React App</h1>
-        <p className={classes.join(' ')}>This is really working!</p>
-        <button
-          style={style}
-          onClick={this.togglePersonsHandler}>Switch Name</button>
-          {persons}
-      </div>
+      <StyleRoot>
+        <div className="App">  
+          <h1>Hi, I'm a React App</h1>
+          <p className={classes.join(' ')}>This is really working!</p>
+          <button
+            style={style}
+            onClick={this.togglePersonsHandler}>Switch Name</button>
+            {persons}
+        </div>
+      </StyleRoot>
     );
   }
-
-    // the code above gets compiled into example code below, Even though it looks like HTML it's JSX, React compiles it.
-    // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Hi, I\m a React App?') );
 }
 
-export default App;
+export default Radium(App);
 
 
